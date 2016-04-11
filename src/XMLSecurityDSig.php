@@ -366,7 +366,7 @@ class XMLSecurityDSig
         $digValue = $this->calculateDigest($digestAlgorithm, $data, false);
         $query = 'string(./secdsig:DigestValue)';
         $digestValue = $xpath->evaluate($query, $refNode);
-        return ($digValue == base64_decode($digestValue));
+        return (bin2hex($digValue) == bin2hex(base64_decode($digestValue)));
     }
 
     /**
@@ -489,7 +489,7 @@ class XMLSecurityDSig
                             $xPath->registerNamespace($nspf, $ns);
                         }
                     }
-                    $iDlist = '@Id="'.$identifier.'"';
+                    $iDlist = '@ID="'.$identifier.'"';
                     if (is_array($this->idKeys)) {
                         foreach ($this->idKeys AS $idKey) {
                             $iDlist .= " or @$idKey='$identifier'";
